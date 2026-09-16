@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Population Density</title>
+    <link rel="stylesheet" href="population-map.css">
+  </head>
+  <body>
+    <main id="viewer" aria-label="Interactive population density map">
+      <div id="map-stage">
+        <img id="base-map" alt="" hidden>
+        <img id="density-map" alt="WorldPop population density">
+        <div id="loading" hidden>LOADING POPULATION GRID…</div>
+      </div>
+      <nav class="continent-navigation" aria-label="Continent navigation">
+        <button id="continent-previous" type="button" aria-label="Previous continent">‹</button>
+        <div>
+          <span>CONTINENT VIEW</span>
+          <strong id="continent-name">NORTH AMERICA</strong>
+          <small id="continent-position">01 / 07</small>
+        </div>
+        <button id="continent-next" type="button" aria-label="Next continent">›</button>
+      </nav>
+      <div class="continent-strip" id="continent-strip" aria-label="Choose continent">
+      </div>
+      <section class="legend" aria-label="Population density legend">
+        <strong>POPULATION DENSITY</strong>
+        <div class="legend-ramp"></div>
+        <div><span>LOW</span><span>MEDIUM</span><span>HIGH</span></div>
+        <small>MODELED PEOPLE PER 1KM GRID · 2020 · COLOR INTENSITY VISUALLY AMPLIFIED</small>
+      </section>
+      <div class="attribution">WORLDPOP · ESRI · 2020</div>
+    </main>
+    <script src="population-map.js"></script>
+  </body>
+</html>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GEOINT</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="dashboard.html">
+        <span class="brand-mark"><img src="icons/geoint-logo-32.png" alt=""></span>
+        <span>GEOINT</span>
+      </a>
+      <section id="home-location-reset" class="location-clock home-clock is-interactive" aria-label="Los Angeles home time. Activate to reset maps to Coronado Island, California." role="button" tabindex="0" title="Reset GEOINT to Coronado Island, California">
+        <div class="clock-ident">
+          <span class="section-kicker">HOME TIME</span>
+          <strong>LOS ANGELES / SAN DIEGO</strong>
+        </div>
+        <div class="clock-display">
+          <span id="home-clock-time">--:--:--</span>
+          <span id="home-clock-period">HRS</span>
+        </div>
+        <div class="clock-meta">
+          <strong id="home-clock-date">Resolving date…</strong>
+          <span id="home-clock-zone">PACIFIC TIME</span>
+        </div>
+      </section>
+      <section id="location-clock" class="location-clock is-interactive" hidden aria-live="off" role="button" tabindex="0" aria-label="Location time. Activate to search by time of day.">
+        <div class="clock-ident clock-readout">
+          <span class="section-kicker">LOCATION TIME</span>
+          <strong id="clock-location">Resolving location…</strong>
+        </div>
+        <div class="clock-display clock-readout">
+          <span id="clock-time">--:--:--</span>
+          <span id="clock-period">HRS</span>
+        </div>
+        <div class="clock-meta clock-readout">
+          <strong id="clock-date">Resolving date…</strong>
+          <span id="clock-zone">TIME ZONE LOOKUP</span>
+        </div>
+        <form id="time-search-form" class="time-search-form" hidden>
+          <label for="time-search-input">TIME OF DAY</label>
+          <input id="time-search-input" type="text" inputmode="numeric" value="10:00" placeholder="5:00" pattern="(?:0?[1-9]|1[0-2]):[0-5][0-9]" required aria-label="Time, for example 5 colon 00">
+          <select id="time-search-period" aria-label="AM or PM">
+            <option value="AM">AM</option>
+            <option value="PM" selected>PM</option>
+          </select>
+          <button type="submit" aria-label="Find world time band">TARGET</button>
+          <button id="time-search-cancel" type="button" aria-label="Cancel time search">×</button>
+        </form>
+      </section>
+      <form id="dashboard-form" class="address-bar header-search">
+        <label class="sr-only" for="dashboard-address">Address, place, ZIP, or area code</label>
+        <input id="dashboard-address" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="country-suggestions" placeholder="Address, place, ZIP, or area code…">
+        <div id="country-suggestions" class="country-suggestions" role="listbox" aria-label="Country, state, city, and county suggestions" hidden></div>
+        <button class="primary load-area-button" type="submit" title="Locate and load a new area" aria-label="Locate and load a new area">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path class="pin-outline" d="M16 29S7 20.2 7 12.5a9 9 0 1 1 18 0C25 20.2 16 29 16 29Z"></path>
+            <circle cx="16" cy="12.5" r="4.2"></circle>
+            <path class="target-lines" d="M16 5.5v3M16 16.5v3M9 12.5h3M20 12.5h3"></path>
+          </svg>
+          <span class="sr-only">Load area</span>
+        </button>
+      </form>
+      <div class="topbar-actions">
+        <span class="local-badge">LOCAL WORKSPACE</span>
+      </div>
+    </header>
+
+    <aside id="reference-panel" class="reference-panel" aria-label="ZIP code and area code reference">
+      <header class="reference-header">
+        <button id="reference-previous" class="reference-nav-button" type="button" aria-label="Show previous reference view">‹</button>
+        <div class="reference-header-title">
+          <span id="reference-view-position" class="section-kicker">01 / 03</span>
+          <h2 id="reference-view-title">Intel</h2>
+        </div>
+        <button id="reference-next" class="reference-nav-button" type="button" aria-label="Show next reference view">›</button>
+        <button id="reference-close" class="reference-close" type="button" aria-label="Close side panel">×</button>
+      </header>
+      <div id="reference-intelligence-view" class="reference-body intelligence-body">
+        <a id="intelligence-scope-link" class="intelligence-scope" href="https://www.google.com/" target="_blank" rel="noopener">
+          <span id="intelligence-type">AREA BRIEFING</span>
+          <strong id="intelligence-name">Awaiting location</strong>
+          <small id="intelligence-region">Search a location to load local context.</small>
+        </a>
+        <section id="location-news-intelligence" class="location-news-intelligence" hidden>
+          <a id="location-news-link" href="https://www.google.com/search?q=world+news" target="_blank" rel="noopener" aria-label="Search Google for news about the current location">NEWS</a>
+          <a id="location-images-link" href="https://www.google.com/search?tbm=isch&amp;q=world+images" target="_blank" rel="noopener" aria-label="Search Google Images for the current location">IMAGES</a>
+        </section>
+        <section id="leadership-intelligence" class="leadership-intelligence" hidden>
+          <div class="leadership-heading">
+            <span>CURRENT LEADERSHIP</span>
+            <small id="leadership-vintage">SNAPSHOT</small>
+          </div>
+          <div id="leadership-cards" class="leadership-cards"></div>
+        </section>
+        <section id="major-cities-intelligence" class="major-cities-intelligence" hidden>
+          <div class="major-cities-heading">
+            <div>
+              <span>MAJOR CITIES</span>
+              <small id="major-cities-vintage">POP. ESTIMATES</small>
+            </div>
+            <div class="major-city-nav" aria-label="Major city pages">
+              <button id="major-city-previous" type="button" aria-label="Show larger cities">‹</button>
+              <strong id="major-city-position">01 / 01</strong>
+              <button id="major-city-next" type="button" aria-label="Show smaller cities">›</button>
+            </div>
+          </div>
+          <div id="major-city-cards" class="major-city-cards"></div>
+        </section>
+        <section id="county-intelligence" class="county-intelligence" hidden>
+          <div class="leadership-heading">
+            <span>COUNTY CONTEXT</span>
+            <small>2025 POP. ESTIMATES</small>
+          </div>
+          <div id="county-cards" class="county-cards"></div>
+        </section>
+        <section id="california-intelligence" class="california-intelligence" hidden>
+          <div class="california-heading">
+            <span>CALIFORNIA LOCAL CONTEXT</span>
+            <strong>CA // 58 COUNTIES</strong>
+          </div>
+          <div class="california-city-heading">
+            <span>NEARBY CITIES</span>
+            <small id="california-city-county">CURRENT COUNTY</small>
+          </div>
+          <div id="california-city-list" class="california-city-list"></div>
+        </section>
+      </div>
+      <div id="reference-codes-view" class="reference-body" hidden>
+        <form id="zip-lookup-form" class="reference-search">
+          <label for="zip-lookup">ZIP CODE LOOKUP</label>
+          <div>
+            <input id="zip-lookup" inputmode="numeric" maxlength="5" placeholder="92028" aria-describedby="zip-help">
+            <button type="submit">GO</button>
+          </div>
+          <small id="zip-help">Five-digit US ZIP or Census ZCTA</small>
+        </form>
+        <form id="area-code-form" class="reference-search">
+          <label for="area-code-lookup">AREA CODE LOOKUP</label>
+          <div>
+            <input id="area-code-lookup" inputmode="numeric" maxlength="3" placeholder="619" aria-describedby="area-code-help">
+            <button type="submit">GO</button>
+          </div>
+          <small id="area-code-help">Three-digit NANPA area code</small>
+        </form>
+
+        <section class="reference-context">
+          <div class="reference-context-heading">
+            <span class="section-kicker">CURRENT AREA</span>
+            <span id="reference-distance-label">AWAITING LOCATION</span>
+          </div>
+          <div class="reference-primary">
+            <div>
+              <span>PRIMARY ZIP</span>
+              <strong id="primary-zip">-----</strong>
+            </div>
+            <div>
+              <span>AREA CODES</span>
+              <strong id="primary-area-codes">---</strong>
+            </div>
+          </div>
+          <dl id="reference-details" class="reference-details">
+            <div><dt>PLACE</dt><dd>Search a US location</dd></div>
+            <div><dt>COUNTY</dt><dd>—</dd></div>
+          </dl>
+          <div class="reference-group">
+            <span>NEARBY ZIP CODES</span>
+            <div id="nearby-zips" class="reference-chips"><em>NO DATA</em></div>
+          </div>
+          <div class="reference-group">
+            <span>REGIONAL AREA CODES</span>
+            <div id="nearby-area-codes" class="reference-chips"><em>NO DATA</em></div>
+          </div>
+          <div id="reference-notice" class="reference-notice">
+            ZIP geography uses Census ZCTAs. Area codes indicate original numbering regions, not a person's present location.
+          </div>
+        </section>
+      </div>
+      <div id="reference-history-view" class="reference-body history-body" hidden>
+        <div class="history-heading">
+          <div>
+            <span class="section-kicker">LOCAL SEARCH LOG</span>
+            <h3>RECENT LOCATIONS</h3>
+          </div>
+          <button id="clear-search-history" type="button">CLEAR</button>
+        </div>
+        <div id="search-history-list" class="search-history-list">
+          <p class="history-empty">Your searched locations will appear here.</p>
+        </div>
+      </div>
+      <div class="reference-vintage">
+        <span id="zip-vintage">ZIP DATA</span>
+        <span id="nanpa-vintage">NANPA DATA</span>
+      </div>
+    </aside>
+
+    <main class="dashboard">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">AREA BRIEFING</div>
+          <div class="briefing-title-row">
+            <h1 id="case-title">Prepare a location</h1>
+          </div>
+          <div class="briefing-cards">
+            <div id="location-flags" class="location-flags" hidden aria-label="Location flags"></div>
+            <button id="geo-shape-panel" class="geo-shape-panel" type="button" hidden aria-label="Location silhouette">
+              <img id="geo-shape-image" alt="">
+              <span id="geo-shape-label"></span>
+            </button>
+            <button id="capital-panel" class="capital-panel" type="button" hidden aria-label="Load capital city">
+              <span id="capital-type">CAPITAL</span>
+              <strong id="capital-name">—</strong>
+              <small id="capital-region"></small>
+            </button>
+            <button id="established-panel" class="established-panel" type="button" hidden aria-label="Cycle recognized establishment dates">
+              <span>ESTABLISHED <b id="established-position"></b></span>
+              <strong id="established-date">—</strong>
+              <small id="established-event"></small>
+            </button>
+            <a id="currency-panel" class="currency-panel" href="https://www.google.com/search?q=USD+currency+converter" target="_blank" rel="noopener" hidden aria-label="Open primary currency converter">
+              <span id="currency-name">Currency</span>
+              <div class="currency-value">
+                <strong id="currency-symbol">—</strong>
+                <b id="currency-code">---</b>
+              </div>
+            </a>
+            <aside id="population-panel" class="population-panel" hidden aria-label="Population estimates">
+              <span>POPULATION · EST.</span>
+              <div id="population-cards" class="population-cards"></div>
+              <i id="population-panel-fill" class="population-panel-fill"></i>
+              <button id="population-panel-share" class="population-panel-share" type="button" aria-label="Return to population estimates">
+                <strong id="population-panel-percentage">—</strong>
+                <small id="population-panel-comparison">OF WORLD POPULATION</small>
+              </button>
+            </aside>
+            <button id="gdp-panel" class="gdp-panel" type="button" hidden aria-label="Gross domestic product">
+              <span>GDP · SNAPSHOT</span>
+              <i id="gdp-share-fill" class="gdp-share-fill"></i>
+              <div class="gdp-normal-view">
+                <strong id="gdp-value">—</strong>
+                <small id="gdp-context"></small>
+              </div>
+              <div class="gdp-share-view">
+                <strong id="gdp-share-value">—</strong>
+                <small>OF U.S. GDP</small>
+              </div>
+              <div class="gdp-trend-view">
+                <svg id="gdp-trend-chart" viewBox="0 0 100 36" preserveAspectRatio="none" aria-hidden="true">
+                  <path id="gdp-trend-path"></path>
+                  <circle id="gdp-trend-end" r="2"></circle>
+                </svg>
+                <strong id="gdp-trend-change">—</strong>
+                <small id="gdp-trend-years"></small>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="workspace-triad briefing-triad" aria-label="Workspace visibility controls">
+          <svg viewBox="0 0 96 72" aria-hidden="false">
+            <g id="briefing-toggle" class="triad-segment triad-top" role="button" tabindex="0" aria-label="Toggle area briefing" aria-pressed="true">
+              <title>Toggle area briefing</title>
+              <polygon class="cube-top-face" points="48,2 62,10 48,18 34,10"></polygon>
+              <polygon class="cube-left-face" points="34,10 48,18 48,34 34,26"></polygon>
+              <polygon class="cube-right-face" points="48,18 62,10 62,26 48,34"></polygon>
+            </g>
+            <g id="reference-toggle" class="triad-segment triad-left" role="button" tabindex="0" aria-label="Toggle side panel" aria-pressed="true" aria-expanded="true" aria-controls="reference-panel">
+              <title>Toggle side panel</title>
+              <polygon class="cube-top-face" points="27,35 41,43 27,51 13,43"></polygon>
+              <polygon class="cube-left-face" points="13,43 27,51 27,67 13,59"></polygon>
+              <polygon class="cube-right-face" points="27,51 41,43 41,59 27,67"></polygon>
+            </g>
+            <g id="map-previews-toggle" class="triad-segment triad-right" role="button" tabindex="0" aria-label="Toggle map previews" aria-pressed="true">
+              <title>Toggle map previews</title>
+              <polygon class="cube-top-face" points="69,35 83,43 69,51 55,43"></polygon>
+              <polygon class="cube-left-face" points="55,43 69,51 69,67 55,59"></polygon>
+              <polygon class="cube-right-face" points="69,51 83,43 83,59 69,67"></polygon>
+            </g>
+          </svg>
+        </div>
+        <div id="map-carousel-nav" class="map-carousel-nav" aria-label="Map focus navigation" hidden>
+          <button id="map-previous" type="button" aria-label="Show previous map">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div>
+            <strong id="map-position">01 / 04</strong>
+            <small>CHANGE FOCUS</small>
+          </div>
+          <button id="map-next" type="button" aria-label="Show next map">
+            <span aria-hidden="true">›</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="empty-state" class="empty-state">
+        <h2>Start with an address</h2>
+        <p>Your interactive imagery console will appear here.</p>
+      </section>
+
+      <div id="workspace" hidden>
+        <section class="map-wall-section">
+          <div id="map-wall" class="map-wall"></div>
+        </section>
+
+      </div>
+    </main>
+    <script src="browser-compat.js"></script>
+    <script src="data/area-reference-data.js"></script>
+    <script src="data/population-reference.js"></script>
+    <script src="data/currency-reference.js"></script>
+    <script src="data/location-reference.js"></script>
+    <script src="data/leadership-reference.js"></script>
+    <script src="data/gdp-reference.js"></script>
+    <script src="data/established-reference.js"></script>
+    <script src="data/flag-history.js"></script>
+    <script src="data/city-reference.js"></script>
+    <script src="data/california-county-reference.js"></script>
+    <script src="country-autocomplete.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

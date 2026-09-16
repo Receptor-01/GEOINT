@@ -1,0 +1,16 @@
+# Generated deliveries, local caches, and large inputs (runtime data/*.js stays tracked).
+/deliveries/
+/data/raw/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+.env
+.env.*
+!.env.example
+node_modules/
+
+# Separate local tools do not belong in the extension repository.
+/Recon Bot/
+/EVIDENCE LOCKER/
+/VEHICLE IMAGER/

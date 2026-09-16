@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Topographic Terrain</title>
+    <link rel="stylesheet" href="topographic-map.css">
+  </head>
+  <body>
+    <main id="topographic-viewer" aria-label="Interactive world topographic map">
+      <div id="topographic-tiles" aria-hidden="true"></div>
+      <div class="target-reticle" aria-hidden="true"><span></span></div>
+      <section class="terrain-status">
+        <span>TOPOGRAPHIC TERRAIN</span>
+        <strong id="terrain-coordinates">--.---- / --.----</strong>
+        <small id="terrain-zoom">ZOOM 08</small>
+      </section>
+      <nav class="terrain-controls" aria-label="Topographic map controls">
+        <button id="terrain-zoom-in" type="button" aria-label="Zoom in">+</button>
+        <button id="terrain-zoom-out" type="button" aria-label="Zoom out">−</button>
+        <button id="terrain-reset" type="button" aria-label="Return to searched location">⌖</button>
+      </nav>
+      <div class="terrain-attribution">
+        © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OPENSTREETMAP</a>
+        · <a href="https://www.opentopomap.org/" target="_blank" rel="noopener">OPENTOPOMAP</a>
+      </div>
+    </main>
+    <script src="topographic-map.js"></script>
+  </body>
+</html>

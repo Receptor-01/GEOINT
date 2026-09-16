@@ -1,0 +1,119 @@
+:root {
+  color-scheme: dark;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body,
+#topographic-viewer {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #d9d2ba;
+}
+
+#topographic-viewer {
+  position: relative;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+#topographic-viewer.is-dragging { cursor: grabbing; }
+
+#topographic-tiles,
+#topographic-tiles img {
+  position: absolute;
+}
+
+#topographic-tiles { inset: 0; }
+
+#topographic-tiles img {
+  width: 256px;
+  height: 256px;
+  pointer-events: none;
+  filter: saturate(.82) contrast(1.07) brightness(.88);
+}
+
+.target-reticle {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(250,87,18,.9);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(250,87,18,.45), inset 0 0 8px rgba(250,87,18,.2);
+  pointer-events: none;
+}
+
+.target-reticle::before,
+.target-reticle::after {
+  content: "";
+  position: absolute;
+  background: #fa5712;
+}
+
+.target-reticle::before { left: 16px; top: -7px; width: 1px; height: 46px; }
+.target-reticle::after { left: -7px; top: 16px; width: 46px; height: 1px; }
+.target-reticle span { position: absolute; inset: 13px; border-radius: 50%; background: #fa5712; }
+
+.terrain-status {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  left: 12px;
+  display: grid;
+  gap: 4px;
+  border: 1px solid #fa5712;
+  border-left-width: 3px;
+  border-radius: 4px;
+  padding: 8px 11px;
+  background: rgba(5,5,5,.88);
+  box-shadow: 0 0 14px rgba(250,87,18,.25);
+}
+
+.terrain-status span { color: #ff6a1a; font-size: 8px; font-weight: 700; letter-spacing: .1em; }
+.terrain-status strong { color: #fff3df; font-size: 11px; letter-spacing: .05em; }
+.terrain-status small { color: #896653; font-size: 7px; letter-spacing: .08em; }
+
+.terrain-controls {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.terrain-controls button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #fa5712;
+  border-radius: 4px;
+  padding: 0;
+  background: rgba(5,5,5,.9);
+  color: #ff6a1a;
+  font: 700 22px/1 Consolas, monospace;
+  box-shadow: 0 0 10px rgba(250,87,18,.2);
+}
+
+.terrain-controls button:hover { background: #fa5712; color: #050505; }
+
+.terrain-attribution {
+  position: absolute;
+  z-index: 4;
+  right: 7px;
+  bottom: 5px;
+  padding: 3px 5px;
+  background: rgba(5,5,5,.72);
+  color: #b7a08f;
+  font-size: 7px;
+}
+
+.terrain-attribution a { color: #e1c5ad; text-decoration: none; }

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Population Quadrant Grid</title>
+    <link rel="stylesheet" href="population-grid.css">
+  </head>
+  <body>
+    <main id="population-grid" aria-label="Interactive world population quadrant grid">
+      <canvas id="population-canvas" aria-label="Countries positioned by hemisphere with square area proportional to population"></canvas>
+      <div class="quadrant-label northwest">NW</div>
+      <div class="quadrant-label northeast">NE</div>
+      <div class="quadrant-label southwest">SW</div>
+      <div class="quadrant-label southeast">SE</div>
+      <div id="population-tooltip" role="status" hidden>
+        <div class="tooltip-heading">
+          <img id="population-tooltip-flag" alt="" aria-hidden="true">
+          <strong></strong>
+        </div>
+        <span></span>
+      </div>
+      <div class="zoom-controls" aria-label="Population grid zoom controls">
+        <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+        <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+      </div>
+      <div class="grid-key">
+        <strong>POPULATION // AREA</strong>
+        <span>SQUARE AREA ≈ POPULATION · POSITION ≈ GEOGRAPHY</span>
+      </div>
+    </main>
+    <script src="data/population-reference.js"></script>
+    <script src="data/country-centroids.js"></script>
+    <script src="data/subdivision-grid.js"></script>
+    <script src="population-grid.js"></script>
+  </body>
+</html>

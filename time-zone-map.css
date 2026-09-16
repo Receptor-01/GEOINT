@@ -1,0 +1,15 @@
+:root { color-scheme: dark; font-family: Consolas, "Courier New", monospace; }
+* { box-sizing: border-box; }
+html, body, #time-map { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #080808; }
+#time-map { position: relative; }
+#world-map { position: absolute; inset: 0; overflow: hidden; background: #182329; }
+#world-map img { position: absolute; width: 25%; height: 50%; object-fit: fill; filter: grayscale(.65) brightness(.48) contrast(1.25) sepia(.25); }
+#time-band { position: absolute; z-index: 2; top: 0; bottom: 0; width: 5.2%; background: linear-gradient(90deg, rgba(250,87,18,.12), rgba(255,127,40,.7), rgba(250,87,18,.12)); border-left: 1px solid #fa5712; border-right: 1px solid #fa5712; box-shadow: 0 0 28px rgba(250,87,18,.65), inset 0 0 20px rgba(255,220,160,.28); }
+#time-meridian { position: absolute; z-index: 3; top: 0; bottom: 0; width: 1px; background: #fff3df; box-shadow: 0 0 12px #fa5712; }
+.time-map-readout { position: absolute; z-index: 4; top: 12px; left: 12px; display: grid; gap: 4px; border: 1px solid #fa5712; border-left-width: 3px; border-radius: 4px; padding: 9px 11px; background: rgba(5,5,5,.9); box-shadow: 0 0 16px rgba(250,87,18,.28); }
+.time-map-readout span { color: #ff6a1a; font-size: 8px; font-weight: 700; letter-spacing: .1em; }
+.time-map-readout strong { color: #fff3df; font-size: 13px; letter-spacing: .06em; }
+.time-map-readout small { color: #9a6a50; font-size: 7px; letter-spacing: .06em; }
+.time-map-legend { position: absolute; z-index: 4; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 24px); border: 1px solid rgba(250,87,18,.55); padding: 7px 9px; background: rgba(5,5,5,.85); color: #b79986; font-size: 7px; }
+.time-map-legend i { width: 18px; height: 8px; flex: 0 0 auto; background: #fa5712; box-shadow: 0 0 8px #fa5712; }
+.time-map-attribution { position: absolute; z-index: 4; right: 7px; bottom: 5px; color: rgba(255,243,223,.6); font-size: 6px; }

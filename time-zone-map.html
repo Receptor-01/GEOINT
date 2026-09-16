@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>World Time Band</title>
+    <link rel="stylesheet" href="time-zone-map.css">
+  </head>
+  <body>
+    <main id="time-map" aria-label="Approximate world time band map">
+      <div id="world-map" aria-hidden="true"></div>
+      <div id="time-band" aria-hidden="true"></div>
+      <div id="time-meridian" aria-hidden="true"></div>
+      <section class="time-map-readout">
+        <span>REVERSE TIME ESTIMATE</span>
+        <strong id="target-time">CURRENT LOCATION BAND</strong>
+        <small id="offset-label">APPROXIMATE LONGITUDE</small>
+      </section>
+      <section class="time-map-legend">
+        <i></i>
+        <span>LIKELY WORLD TIME BAND · POLITICAL TIME-ZONE BORDERS MAY DIFFER</span>
+      </section>
+      <div class="time-map-attribution">© OPENSTREETMAP · OPENTOPOMAP · LOCAL OFFSET MODEL</div>
+    </main>
+    <script src="time-zone-map.js"></script>
+  </body>
+</html>

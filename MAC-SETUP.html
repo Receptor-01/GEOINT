@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEOINT — MacBook setup</title>
+<style>
+body{font:17px/1.65 system-ui,sans-serif;background:#101010;color:#ddd;max-width:800px;margin:45px auto;padding:0 24px}h1,h2{color:#ff823b;line-height:1.2}h2{margin-top:40px}li{margin:12px 0}code{background:#252525;padding:3px 7px;border-radius:4px;overflow-wrap:anywhere}a{color:#ffac76}.note{padding:18px;border-left:3px solid #fa5712;background:#191919}small{color:#aaa}
+</style>
+<h1>GEOINT on your MacBook</h1>
+<p>Your existing GEOINT extension, including place autocomplete, flags, maps, clocks, and reference data. Installation takes a few minutes. No Terminal commands, server, subscription, or API key are needed.</p>
+<h2>1. Transfer the ZIP to your Mac</h2>
+<p>On Windows, the delivery is saved inside:</p>
+<p><code>C:\Users\andre\OneDrive\Documents\CASE PREP\deliveries</code></p>
+<p>If this folder is syncing with OneDrive, wait for the upload to finish, then sign in to the same OneDrive account on your Mac and download the newest <strong>GEOINT-Mac-…zip</strong>. You can also copy that ZIP using a USB drive or a file-sharing service you already use. Transfer the whole ZIP.</p>
+<h2>2. Extract and keep the extension in a permanent folder</h2>
+<ol>
+<li>In Finder, double-click the downloaded ZIP to extract it.</li>
+<li>Open the extracted delivery folder. It contains this guide and a folder named <strong>GEOINT</strong>.</li>
+<li>In Finder, open your home folder (<strong>Go → Home</strong>). Create a folder named <strong>Browser Extensions</strong>.</li>
+<li>Move the <strong>GEOINT</strong> folder into <strong>Browser Extensions</strong>.</li>
+</ol>
+<p>Your final location should look like <code>/Users/YOUR-MAC-USERNAME/Browser Extensions/GEOINT</code>. Inside GEOINT, you should see <code>manifest.json</code>, <code>dashboard.html</code>, and the <code>assets</code>, <code>data</code>, and <code>icons</code> folders.</p>
+<p class="note">Chrome reads the files from this folder. Keep it in place after installing. The ZIP can be kept as a backup. If using a cloud-synced folder instead, make sure every file stays downloaded locally.</p>
+<h2>3. Install in Google Chrome</h2>
+<ol>
+<li>Open <strong>Google Chrome</strong> on your Mac.</li>
+<li>Type <code>chrome://extensions</code> in the address bar and press Return.</li>
+<li>Turn on <strong>Developer mode</strong> at the top right.</li>
+<li>Click <strong>Load unpacked</strong>.</li>
+<li>Select the permanent <strong>GEOINT</strong> folder containing <code>manifest.json</code>. Select the folder, not the ZIP or an individual file.</li>
+<li>Find GEOINT in the extensions list. Open Chrome's puzzle-piece Extensions menu and pin GEOINT.</li>
+<li>Click its black-and-orange corner-bracket icon, then <strong>OPEN GEOINT</strong>.</li>
+</ol>
+<p>This follows Chrome's official <a href="https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked">Load unpacked installation procedure</a>. You do not need to publish to the Chrome Web Store for this personal installation.</p>
+<h2>4. First-use check</h2>
+<ul>
+<li>The initial location should be <strong>Coronado Island, California</strong>.</li>
+<li>Type <strong>San Diego</strong>. The suggestion should include the U.S. flag. Press Tab to fill, then Return to search.</li>
+<li>Search <strong>Jordan</strong>. Check that the satellite map, clock, and briefing show Jordan.</li>
+<li>Try the map arrows and Intel / GEOINT / History side-panel pages.</li>
+<li>Click the camera button while the map is visible. Look in Chrome's downloads list and your configured Downloads folder for the PNG.</li>
+</ul>
+<h2>What carries over?</h2>
+<p>The app's current code, datasets, autocomplete list, logos, flag images, silhouettes, and styling are included. Windows search history and cached locations live in that browser's private extension storage, so they are not included or synced. The Mac starts its own history.</p>
+<p>Home Time stays fixed to Los Angeles / San Diego, even when you travel. Location Time follows the searched place. Live maps, weather, geocoding, and timezone lookup require an internet connection.</p>
+<p>Some heading and clock fonts may differ on macOS because the preferred fonts are not bundled. Core functionality does not depend on those fonts.</p>
+<h2>5. Updates from Windows</h2>
+<ol>
+<li>After editing the Windows project, create a new delivery ZIP using <code>py tools/build_mac_delivery.py</code> on Windows, or ask your coding assistant to rebuild the Mac delivery.</li>
+<li>Transfer and extract the new ZIP on the Mac.</li>
+<li>Close open GEOINT dashboard tabs. Back up your current GEOINT folder outside the installation path if desired.</li>
+<li>In Finder, copy the new <strong>GEOINT</strong> folder into the same <strong>Browser Extensions</strong> folder and choose <strong>Replace</strong> when asked. Keep the final path identical.</li>
+<li>Open <code>chrome://extensions</code> and click the circular <strong>Reload</strong> button on GEOINT. Then reopen GEOINT.</li>
+</ol>
+<p>Use Reload for updates rather than removing and reinstalling the extension; this preserves the existing installation and its local history. Updates are manual. Editing the Windows copy does not automatically update this Mac copy.</p>
+<h2>Troubleshooting</h2>
+<ul>
+<li><strong>“Manifest file is missing”:</strong> select the inner GEOINT folder, the one with manifest.json directly inside it.</li>
+<li><strong>Old toolbar icon:</strong> reload GEOINT from chrome://extensions, then reopen the popup.</li>
+<li><strong>No autocomplete or flags:</strong> replace the complete folder, including country-autocomplete.js, data, and assets. Reload the extension.</li>
+<li><strong>Blank maps:</strong> check your internet connection, give the provider a moment, and try the same location again. Network filtering may affect individual providers.</li>
+<li><strong>Screenshot unavailable:</strong> open GEOINT through its toolbar icon in Chrome, rather than double-clicking dashboard.html in Finder. Capture the map while its tab is active and visible.</li>
+<li><strong>Load unpacked is unavailable:</strong> a work/school-managed Chrome profile may restrict developer extensions. Use your personal Chrome profile where permitted.</li>
+</ul>
+<p><small>This package contains the extension source and bundled assets. Raw dataset archives, separate desktop utility projects, and Windows launcher scripts are excluded. Mac installation has to be completed on the Mac; generating the delivery does not install it remotely.</small></p>
+</html>
